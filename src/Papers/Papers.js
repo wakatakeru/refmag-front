@@ -19,7 +19,14 @@ class Papers extends Component {
   render() {
     return (
       <div>
-        <p>Papers</p>
+        {this.state.papers === null && <p>Loading</p>}
+        {
+          this.state.papers && this.state.papers.map(paper => (
+            <div>
+              <p>{paper.title}</p>
+            </div>
+          ))
+        }
       </div>
     )
   }
