@@ -56,11 +56,10 @@ class NewPaper extends Component {
       await axios.post(`${paper_url}/papers`, payload);
       this.closeModal();
     } catch (err) {
-
+      this.setState({
+        disabled: false
+      })
     }
-    this.setState({
-      disabled: false
-    })
   }
 
   render() {
