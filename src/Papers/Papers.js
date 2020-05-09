@@ -80,7 +80,7 @@ class Papers extends Component {
         <div className="hero is-primary is-bold">
           <div className="hero-body">
             <div className="container">
-              <h1 className="title">Welcom</h1>
+              <h1 className="title">Welcome</h1>
               <h2 className="subtitle"><strong>refMag</strong>: Reference Manager</h2>
             </div>
           </div>
