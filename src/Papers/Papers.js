@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import Modal from 'react-modal';
 import axios from 'axios';
 import NewPaper from './NewPaper'
@@ -101,7 +102,9 @@ class Papers extends Component {
               this.state.papers && this.state.papers.map(paper => (
                 <div className="column">
                   <div className="box">
-                    <h4 className="title is-4">{paper.title}</h4>
+                    <Link to={`/papers/${paper.id}`} className="title is-4">
+                      {paper.title}
+                    </Link>
                     <p>
                       <small>{paper.doi}</small>
                     </p>
