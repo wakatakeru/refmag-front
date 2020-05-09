@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import axios from 'axios';
+
+const propTypes = {
+  closeModal: PropTypes.func,
+}
 
 class NewPaper extends Component {
   constructor(props) {
@@ -12,6 +16,10 @@ class NewPaper extends Component {
       doi: '',
       supplement: '',
     }
+  }
+
+  closeModal() {
+    return this.props.closeModal();
   }
 
   updateTitle(value) {
@@ -34,20 +42,24 @@ class NewPaper extends Component {
 
   async submit() {
     const paper_url = process.env.REACT_APP_INDEX_API_URL
+    const payload = {
+      title: this.state.title,
+      doi: this.state.doi,
+      supplement: this.state.supplement,
+    };
 
     this.setState({
       disabled: true
     })
 
-    await axios.post(
-      `${paper_url}/papers`,
-      {
-        title: this.state.title,
-        doi: this.state.doi,
-        supplement: this.state.supplement,
-      });
-
-    this.props.history.push('/papers');
+    try {
+      await axios.post(`${paper_url}/papers`, payload);
+      this.closeModal();
+    } catch (err) {
+      this.setState({
+        disabled: false
+      })
+    }
   }
 
   render() {
@@ -118,4 +130,5 @@ class NewPaper extends Component {
   }
 }
 
-export default withRouter(NewPaper);
+NewPaper.propTypes = propTypes;
+export default NewPaper;
