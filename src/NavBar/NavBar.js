@@ -5,17 +5,21 @@ class NavBar extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      hasToken: false,
+      hasToken: true,
+      isLoading: true,
     }
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const token = localStorage.getItem("jwt")
     if (token != null) {
       this.setState({
         hasToken: true,
       })
     }
+    this.setState({
+      isLoading: false,
+    })
   }
 
   clearJWT() {
@@ -23,7 +27,10 @@ class NavBar extends Component {
   }
 
   render() {
-    console.log(this.state.hasToken)
+    if (this.state.isLoading) {
+      return <div>Loading...</div>
+    }
+
     return (
       <nav className="navbar is-black" role="navigation" aria-label="main" >
         <div className="navbar-brand">
@@ -36,7 +43,7 @@ class NavBar extends Component {
             <div class="buttons">
               <Link to="/login" class="button is-light" onClick={() => { this.clearJWT() }}>
                 Log out
-                    </Link>
+              </Link>
             </div>
           </div>
         </div>
