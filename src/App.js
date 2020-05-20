@@ -1,17 +1,23 @@
 import React, { Component } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
+import PrivateRoute from './PrivateRoute';
 import NavBar from './NavBar/NavBar';
+import Login from './Login/Login';
 import Papers from './Papers/Papers';
 import Paper from './Papers/Paper';
+
 
 class App extends Component {
   render() {
     return (
       <div>
         <NavBar />
-        <Route exact path='/papers' component={Papers} />
-        <Route path='/papers/:id' component={Paper} />
-      </div >
+        <Switch>
+          <Route path='/login' component={Login} />
+          <PrivateRoute exact path='/papers' component={Papers} />
+          <PrivateRoute path='/papers/:id' component={Paper} />
+        </Switch>
+      </div>
     );
   }
 }
