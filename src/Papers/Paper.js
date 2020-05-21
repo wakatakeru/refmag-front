@@ -13,10 +13,16 @@ class Paper extends Component {
   async componentDidMount() {
     const papers_url = process.env.REACT_APP_INDEX_API_URL
     const { match: { params } } = this.props;
+    const headers = {
+      headers: {
+        'Authorization': localStorage.getItem('jwt')
+      },
+      data: {}
+    }
     let paper;
 
     try {
-      paper = (await axios.get(`${papers_url}/papers/${params.id}`)).data
+      paper = (await axios.get(`${papers_url}/papers/${params.id}`, headers)).data
     } catch (err) {
       paper = []
     }

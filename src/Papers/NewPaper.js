@@ -47,13 +47,18 @@ class NewPaper extends Component {
       doi: this.state.doi,
       supplement: this.state.supplement,
     };
+    const headers = {
+      headers: {
+        'Authorization': localStorage.getItem('jwt')
+      }
+    }
 
     this.setState({
       disabled: true
     })
 
     try {
-      await axios.post(`${paper_url}/papers`, payload);
+      await axios.post(`${paper_url}/papers`, payload, headers);
       this.closeModal();
     } catch (err) {
       this.setState({
