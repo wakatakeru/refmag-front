@@ -39,10 +39,16 @@ class Papers extends Component {
 
   async updatePapers() {
     const papers_url = process.env.REACT_APP_INDEX_API_URL
+    const headers = {
+      headers: {
+        'Authorization': localStorage.getItem('jwt')
+      },
+      data: {}
+    }
     let papers;
 
     try {
-      papers = (await axios.get(`${papers_url}/papers`)).data.reverse()
+      papers = (await axios.get(`${papers_url}/papers`, headers)).data.reverse()
     } catch (err) {
       papers = []
     }
